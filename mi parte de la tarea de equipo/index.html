@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Plantilla HTML</title>
+    <!-- Estilos CSS incorporados -->
+    <style>
+        /* Variables y reseteo básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* AJUSTE 1: Hacer que el HTML y el Body ocupen toda la altura de la pantalla */
+        html, body {
+            height: 100%;
+        }
+
+        /* AJUSTE 2: Convertir el Body en un contenedor Flex en columna */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Encabezado y Navegación */
+        header {
+            background-color: #2c3e50;
+            color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1abc9c;
+        }
+
+        /* Contenido Principal */
+        main {
+            max-width: 1000px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            
+            /* AJUSTE 3: Permitir que el main crezca y empuje el footer hacia abajo si hay espacio */
+            flex: 1; 
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #1abc9c;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .card p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        /* Botón de ejemplo */
+        .btn {
+            display: inline-block;
+            background-color: #1abc9c;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #16a085;
+        }
+
+        /* Pie de página */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #2c3e50;
+            color: #ffffff;
+            width: 100%;
+            font-size: 0.9rem;
+            /* AJUSTE 4: Quitamos position: relative y margin-top para que flexbox lo controle perfectamente */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera y Título principal -->
+    <header>
+        <h1>Mi Sitio Web</h1>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Acerca de</a>
+            <a href="#">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Contenido -->
+    <main>
+        <section class="card">
+            <h2>Bienvenido a tu plantilla</h2>
+            <p>Este es un diseño limpio, moderno y responsivo listo para que lo adaptes a tus necesidades. Contiene una estructura básica organizada con secciones (cards), tipografía legible y colores agradables a la vista.</p>
+            <p>Puedes cambiar los textos, añadir tablas, formularios o lo que requieras dentro de las etiquetas correspondientes.</p>
+            <a href="#" class="btn">Saber más</a>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2026 - Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
