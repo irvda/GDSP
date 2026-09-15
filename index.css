@@ -1,0 +1,73 @@
+/* Estilos simples para la página de bienvenida */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Inter, 'Segoe UI', Arial, sans-serif;display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#f3f6fb 0%, #eef2ff 100%);color:#0f1724}
+.site-header,.site-footer{flex-shrink:0}
+.container{width:min(920px,94%);background:#ffffff;padding:32px;border-radius:12px;box-shadow:0 12px 30px rgba(15,23,42,0.08);text-align:center;margin:20px 0}
+h1{font-size:2rem;margin-bottom:10px;color:#0b1220}
+#pageText{margin:10px 0;font-size:1.05rem;color:#334155}
+.controls{display:flex;gap:12px;justify-content:center;margin-top:12px}
+.controls button{padding:10px 18px;border-radius:10px;border:0;background:linear-gradient(90deg,#2563eb,#0ea5e9);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,0.18);transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease}
+.controls button:hover:not([disabled]){transform:translateY(-3px);box-shadow:0 12px 30px rgba(37,99,235,0.18)}
+.controls button[disabled]{opacity:0.45;cursor:not-allowed;background:#94a3b8;border-color:#94a3b8;box-shadow:none}
+.page-indicator{margin-top:14px;color:#475569;font-size:0.95rem}
+
+/* Header / Footer */
+.site-header{width:100%;background:linear-gradient(90deg,#0ea5e9,#2563eb);color:#fff;padding:14px 0}
+.header-inner{width:min(980px,94%);margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.site-title{font-size:1.1rem;margin:0}
+.site-nav a{color:rgba(255,255,255,0.95);margin-left:14px;text-decoration:none;font-weight:600}
+
+/* Nav toggle (hamburger) */
+.nav-toggle{display:none;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer}
+.nav-toggle .hamburger{display:block;width:22px;height:2px;background:#fff;position:relative}
+.nav-toggle .hamburger::before,.nav-toggle .hamburger::after{content:'';position:absolute;width:22px;height:2px;background:#fff;left:0}
+.nav-toggle .hamburger::before{top:-7px}
+.nav-toggle .hamburger::after{top:7px}
+
+/* Mobile nav panel */
+#primaryNav{display:flex;gap:14px;align-items:center}
+#primaryNav.mobile-open{position:absolute;top:64px;left:0;right:0;background:#ffffff;padding:12px 18px;flex-direction:column;color:#0b1220;box-shadow:0 8px 30px rgba(15,23,42,0.08)}
+#primaryNav.mobile-open a{color:#0b1220;margin:8px 0}
+
+.site-footer{width:100%;background:#0f1724;color:#cbd5e1;padding:12px 0;margin-top:18px}
+.footer-inner{width:min(980px,94%);margin:0 auto;text-align:center;font-size:0.95rem}
+
+/* Hero with dog */
+
+.hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;padding-top:8px}
+.dog svg{display:block;filter:drop-shadow(0 6px 18px rgba(16,24,40,0.06))}
+.dog{width:160px}
+.hero-text{max-width:520px;text-align:left}
+.lead{color:#475569;margin-top:6px;font-size:0.98rem}
+
+/* Layout tweak */
+body{align-items:stretch;padding:18px 0}
+.container{margin:12px auto}
+
+/* Subtle dog float */
+.dog{animation:float 4s ease-in-out infinite}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+
+/* Page content transitions */
+.page-content{transition:opacity .26s ease, transform .26s ease}
+.page-content.fade-out{opacity:0;transform:translateY(10px)}
+.page-content.fade-in{opacity:1;transform:translateY(0)}
+
+/* Button micro interactions */
+.controls button:active{transform:translateY(-1px) scale(.995)}
+
+/* Responsive tweaks */
+@media (max-width:640px){
+	.hero-text{text-align:center}
+	.hero{padding-top:0}
+	.container{padding:20px}
+	.header-inner{padding:0 6px}
+	.site-nav{display:none}
+	.nav-toggle{display:inline-flex;align-items:center}
+	#primaryNav.mobile-open{display:flex}
+}
+
+/* Fluid typography for better scaling */
+h1{font-size:clamp(1.4rem, 2.2vw + 1rem, 2.4rem)}
+body{font-size:clamp(14px, 0.9vw + 12px, 16px)}
