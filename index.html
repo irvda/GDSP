@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Página de bienvenida</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="index.css" />
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="header-inner">
+				<h2 class="site-title">Mi Sitio</h2>
+				<button id="themeToggle" class="theme-toggle" aria-pressed="false" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+				<button id="navToggle" class="nav-toggle" aria-controls="primaryNav" aria-expanded="false" aria-label="Abrir menú">
+					<span class="hamburger"></span>
+				</button>
+				<nav id="primaryNav" class="site-nav" aria-label="Principal">
+					<a href="#">Inicio</a>
+					<a href="#">Acerca</a>
+				</nav>
+			</div>
+		</header>
+
+		<main class="container">
+			<section class="page-content" id="pageContent">
+				<h1>Bienvenido</h1>
+
+				<div class="hero">
+					<div class="dog" aria-hidden="true">
+						<svg width="140" height="90" viewBox="0 0 140 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dibujo de un perro">
+							<g fill="none" fill-rule="evenodd">
+								<rect id="body" x="10" y="40" width="90" height="28" rx="10" fill="#E6B85C" />
+								<circle id="head" cx="30" cy="35" r="16" fill="#E6B85C" />
+								<circle id="eyeL" class="eye" cx="24" cy="33" r="3" fill="#1f2937" />
+								<circle id="eyeR" class="eye" cx="36" cy="33" r="3" fill="#1f2937" />
+								<path id="mouth" d="M36 38c-3 3-12 3-16 0" stroke="#1f2937" stroke-linecap="round" stroke-width="1.5"/>
+								<ellipse id="hind" cx="95" cy="36" rx="12" ry="8" fill="#C37B48" />
+								<path id="tail" d="M102 38c10 2 18 8 26 12" stroke="#C37B48" stroke-width="4" stroke-linecap="round"/>
+							</g>
+							</svg>
+						</div>
+
+					<div class="hero-text">
+						<p id="pageText">Cargando...</p>
+						<p class="lead">Un amigo peludo te da la bienvenida.</p>
+					</div>
+				</div>
+
+				<div class="controls">
+					<button id="prevBtn" aria-label="Regresar">Regresar</button>
+					<button id="nextBtn" aria-label="Avanzar">Avanzar</button>
+				</div>
+
+				<p class="page-indicator" id="pageIndicator">Página 1 de 3</p>
+			</section>
+		</main>
+
+		<footer class="site-footer">
+			<div class="footer-inner">© 2026 — Un perrito te saluda 🐶</div>
+		</footer>
+
+		<button id="toTop" class="to-top" aria-label="Ir arriba" title="Ir arriba">↑</button>
+
+		<script src="index.js"></script>
+	</body>
+</html>
