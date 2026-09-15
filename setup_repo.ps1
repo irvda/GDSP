@@ -1,8 +1,115 @@
 # setup_repo.ps1
-# Script interactivo para inicializar y subir el proyecto a GitHub
-# Ejecutar dentro de la carpeta del proyecto (donde están index.html, index.css, index.js)
+param(
+    [string]$RemoteUrl = 'https://github.com/irvda/GDSP.git',
+    [string[]]$TeamBranches = @('feature/alice','feature/beto','feature/carla','feature/dan')
+)
 
-param()
+function Exec-Git {
+    param($Args)
+    $proc = Start-Process -FilePath git -ArgumentList $Args -NoNewWindow -PassThru -Wait -RedirectStandardOutput stdout.txt -RedirectStandardError stderr.txt
+    $out = Get-Content stdout.txt -Raw -ErrorAction SilentlyContinue
+    $err = Get-Content stderr.txt -Raw -ErrorAction SilentlyContinue
+    Remove-Item stdout.txt, stderr.txt -ErrorAction SilentlyContinue
+    return @{ ExitCode = $proc.ExitCode; StdOut = $out; StdErr = $err }
+}
+
+Write-Host "== Automated repo setup: $PWD =="
+
+# Check git
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    Write-Error "Git no está instalado o no está en PATH. Instálalo y vuelve a ejecutar."
+    exit 1
+}
+
+# Ensure repo
+if (-not (Test-Path .git)) {
+    Write-Host "Inicializando repositorio git..."
+    Exec-Git 'init'
+} else {
+    Write-Host "Repositorio git ya inicializado."
+}
+
+# Configure credential helper for Windows
+Exec-Git 'config --global credential.helper manager-core' | Out-Null
+
+# Create initial commit if needed
+$status = Exec-Git 'status --porcelain'
+if ($status.StdOut.Trim()) {
+    Write-Host "Hay cambios sin commitear. Haciendo commit inicial..."
+    Exec-Git 'add --all' | Out-Null
+    Exec-Git 'commit -m "Initial commit"' | Out-Null
+} else {
+    Write-Host "No hay cambios pendientes."
+}
+
+# Ensure branch 'main'
+Exec-Git 'branch -M main' | Out-Null
+
+# Setup remote
+Exec-Git 'remote remove origin' | Out-Null
+Exec-Git "remote add origin $RemoteUrl" | Out-Null
+Write-Host "Remote origin => $RemoteUrl"
+
+# Fetch and rebase from remote main if exists
+Write-Host "Obteniendo referencias remotas..."
+$fetch = Exec-Git 'fetch origin --prune'
+Write-Host $fetch.StdOut
+
+# If origin/main exists, rebase local main onto it
+$lsRemote = Exec-Git 'ls-remote --heads origin main'
+if ($lsRemote.StdOut.Trim()) {
+    Write-Host "origin/main encontrado. Rebase local main sobre origin/main..."
+    $pull = Exec-Git 'pull --rebase origin main'
+    Write-Host $pull.StdOut
+    if ($pull.ExitCode -ne 0) {
+        Write-Error "Error en pull --rebase: $($pull.StdErr)"
+        Write-Host "Puedes resolver conflictos manualmente y luego ejecutar: git rebase --continue"
+    }
+}
+
+# Push main
+Write-Host "Pushing main..."
+$pushMain = Exec-Git 'push -u origin main'
+Write-Host $pushMain.StdOut
+if ($pushMain.ExitCode -ne 0) {
+    Write-Error "Falló push main: $($pushMain.StdErr)"
+    Write-Host "Verifica red/credenciales. Intenta: git config --global credential.helper manager-core"
+    exit 2
+}
+
+# Create and push team branches
+foreach ($br in $TeamBranches) {
+    Write-Host "-- Procesando rama: $br"
+    $localExists = Exec-Git "rev-parse --verify $br";
+    if ($localExists.ExitCode -ne 0) {
+        Write-Host "Creando rama local $br (desde main)..."
+        Exec-Git "checkout -b $br main" | Out-Null
+    } else {
+        Write-Host "Cambiando a rama $br..."
+        Exec-Git "checkout $br" | Out-Null
+    }
+
+    Write-Host "Pushing $br to origin..."
+    $pushRes = Exec-Git "push -u origin $br"
+    Write-Host $pushRes.StdOut
+    if ($pushRes.ExitCode -ne 0) {
+        Write-Error "Push falló para $br: $($pushRes.StdErr)"
+        Write-Host "Consejo: Reintenta 'git push' o revisa conexión/proxy/SSH. Saliendo."
+        exit 3
+    }
+}
+
+Write-Host "Todas las ramas procesadas. Cambiando a main..."
+Exec-Git 'checkout main' | Out-Null
+
+Write-Host "Hecho. Si quieres crear PRs automáticamente instala y autentica 'gh' y ejecuta:"
+Write-Host "  gh auth login"
+Write-Host "  gh pr create --base main --head feature/beto --title \"Feature Beto\" --body \"Descripción\""
+
+Write-Host "Si HTTPS da problemas, considera configurar SSH y cambiar remote:"
+Write-Host "  git remote set-url origin git@github.com:irvda/GDSP.git"
+
+Write-Host "Script finalizado con éxito."
 
 function Read-YesNo($msg){
     while($true){
