@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>diseño de login</title>
+</head>
+<body>
+    
+    <div class="container" id="container">
+        <!--contenedor de crear cuenta-->
+        <div class="form-container sign-up">
+            <form id="registerForm" novalidate>
+                <h1>Crear Cuenta</h1>
+                <!--botones de iniciar cuenta de servicios de apps como google, facebot, etc.-->
+                <div class="social-icons">
+                    <a href="https://accounts.google.com/" class="icon" title="Google+"><i class="fa-brands fa-google-plus-g"></i></a> <!--icono de google-->
+                    <a href="https://www.facebook.com/login/?locale=es_LA" class="icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a> <!--icono de facebook-->
+                    <a href="https://www.instagram.com/" class="icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a> <!--icono de intagram-->
+                    <a href="https://x.com/" class="icon" title="X-twitter"><i class="fa-brands fa-x-twitter"></i></a> <!--icono de x-twiter-->
+                </div>
+                <!--formulario de crear cuenta-->
+                <span>o utilice su correo electrónico para registrarse.</span>
+                <input type="text" id="registerName" name="username" placeholder="Nombre de Usuario" required>
+                <small class="error-message" aria-live="polite"></small>
+                <input type="email" id="registerEmail" name="email" placeholder="correo electrónico" required>
+                <small class="error-message" aria-live="polite"></small>
+                <input type="password" id="registerPassword" name="password" placeholder="Contraseña" required maxlength="8">
+                <small class="error-message" aria-live="polite"></small>
+                <button type="submit">Crear Cuenta</button>
+            </form>
+        </div>
+        
+        <!--contenedor de iniciar sesion-->
+        <div class="form-container sign-in">
+            <form id="loginForm" novalidate>
+                <h1>Iniciar Sesion</h1>
+                <!--botones de iniciar cuenta de servicios de apps como google, facebot, etc.-->
+                <div class="social-icons">
+                    <a href="https://accounts.google.com/" class="icon" title="Google+"><i class="fa-brands fa-google-plus-g"></i></a> <!--icono de google-->
+                    <a href="https://www.facebook.com/login/?locale=es_LA" class="icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a> <!--icono de facebook-->
+                    <a href="https://www.instagram.com/" class="icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a> <!--icono de intagram-->
+                    <a href="https://x.com/" class="icon" title="X-twitter"><i class="fa-brands fa-x-twitter"></i></a> <!--icono de x-twiter-->
+                </div>
+                <!--formulario de iniciar sesion si tiene cuenta-->
+                <span>o utilice la contraseña de su correo electrónico.</span>
+                <input type="email" id="loginEmail" name="email" placeholder="Correo electrónico" required>
+                <small class="error-message" aria-live="polite"></small>
+                <input type="password" id="loginPassword" name="password" placeholder="Contraseña" required maxlength="8">
+                <small class="error-message" aria-live="polite"></small>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button type="submit">Iniciar Sesion</button>
+            </form>
+        </div>
+        <!--contenedor derecho y izquierdo-->
+        <div class="toggle-container">
+            <div class="toggle">
+                <!--contenedor con datos de bienvenida en el iniciar sesion-->
+                <div class="toggle-panel toggle-left">
+                    <h1>¡Bienvenido de nuevo!</h1>
+                    <p>Introduce tus datos personales para utilizar todas las funciones del sitio.</p>
+                    <button class="hidden" id="login">Iniciar Sesion</button>
+                    <button class="hidden" onclick="location.href='../index.html'">Cerrar</button>
+                </div>
+                <!--contenedor con informacion en crear cuenta-->
+                <div class="toggle-panel toggle-right">
+                    <h1>¡Hola amigo(a)!</h1>
+                    <p>Regístrate con tus datos personales para usar todas las funciones del sitio.</p>
+                    <button class="hidden" id="register">Crear Cuenta</button>
+                    <button class="hidden" onclick="location.href='../index.html'">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
